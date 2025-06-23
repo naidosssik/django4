@@ -1,2 +1,2 @@
-# django4
+# django 4 sem
 Topic: "Online voting with nominations"
