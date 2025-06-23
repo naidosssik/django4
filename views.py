@@ -86,13 +86,15 @@ def nominee_delete(request, pk):
 
 
 
+from django.shortcuts import render
 from .models import nkexam
 
-def nkexam(request):
+def nkexam_list(request):
     exams = nkexam.objects.filter(is_public=True)
-    return render(request, 'mdexam_list.html', {
+    context = {
         'exams': exams,
-        'fio': 'Касумова Наида Рашидовна',
-        'group': '231-323',
-    })
+        'fio': 'Касумова Наида Рашидовна',  
+        'group': '231-323',              
+    }
     return render(request, 'nkexam.html', context)
+    
