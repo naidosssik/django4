@@ -19,3 +19,6 @@ urlpatterns = [
     
     path('vote/<int:nominee_id>/', views.vote_nominee, name='vote_nominee'),
 ]
+
+
+
