@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная страница онлайн-голосования
+{% endblock %}
+
+{% block content %}
+
+<p>Добро пожаловать на сайт <em>Онлайн-голосования</em>, где вы можете ознакомиться с номинациями, номинантами и принять участие в голосовании.</p>
+
+<h2>Статистика</h2>
+
+<p>Текущие показатели системы:</p>
+
+<h3>Проекты номинантов (первые 5):</h3>
+<ul>
+  {% for project in nominee_projects %}
+    <li>{{ project }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Проекты номинантов (По дате создания, в обратном порядке и с указанным email):</h3>
+<ul>
+  {% for project in nominee_order %}
+    <li>{{ project }}</li>
+  {% endfor %}
+</ul>
+
+
+<h3>Номинации (первые 5):</h3>
+<ul>
+  {% for nomination in nomination_names %}
+    <li>{{ nomination.name }}</li>
+  {% endfor %}
+</ul>
+
+<p><strong>Всего номинаций:</strong> {{ num_nominations }}</p>
+<p><strong>Число номинантов:</strong> {{ num_nominees }}</p>
+<p>Есть номинанты без контакта: {{ has_nominees_without_contact }}</p>
+
+<ul>
+  <li><strong>Голосов:</strong> {{ num_votes }}</li>
+  <li><strong>Пользователей:</strong> {{ num_users }}</li>
+  <li><strong>Членов жюри:</strong> {{ num_jury_members }}</li>
+</ul>
+
+<h3>Все номинации:</h3>
+<ul>
+  {% for nomination in nominations %}
+    <li>{{ nomination.name }} — {{ nomination.num_nominees }} участников</li>
+  {% endfor %}
+</ul>
+
+<p>Среднее число голосов: {{ avg_votes }}</p>
+<p>Максимум голосов за номинацию: {{ max_votes }}</p>
+
+{% endblock %}

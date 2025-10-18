@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Добро пожаловать, {{ user.username }}!{% endblock %}
+
+{% block content %}
+<h2>Имя пользователя: {{ user.username }}</h2>
+<p>Email: {{ user.email }}</p>
+<p>Роль: {{ user.get_role_display }}</p>
+
+<a href="{% url 'logout' %}">Выйти</a>
+{% endblock %}

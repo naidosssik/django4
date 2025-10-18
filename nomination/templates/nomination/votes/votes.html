@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список голосов
+{% endblock %}
+
+{% block content %}
+<h1>Голоса</h1>
+
+<h2>Статистика голосов</h2>
+<p>Всего голосов: {{ votes_count }}</p>
+<p>Есть воздержавшиеся голоса: {{ has_abstain }}</p>
+
+
+{% if votes %}
+    <ul class="list-group">
+        {% for vote in votes %}
+            <li class="list-group-item">
+                Пользователь: {{ vote.user.email }} — 
+                Номинант: {{ vote.nominee.project_name }} — 
+                Выбор: {{ vote.get_choice_display }} — 
+                Дата: {{ vote.voted_at|date:"d.m.Y H:i" }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Голосов пока нет.</p>
+{% endif %}
+
+
+<h2>Фильтры по типу голосов</h2>
+<ul class="list-inline">
+  <li class="list-inline-item">
+    <a href="{% url 'yes_votes_list' %}" class="btn btn-outline-success btn-sm">Только "За"</a>
+  </li>
+  <li class="list-inline-item">
+    <a href="{% url 'no_votes_list' %}" class="btn btn-outline-danger btn-sm">Только "Против"</a>
+  </li>
+</ul>
+
+
+<p>
+  {% if updated %}
+    <span class="text-success">Воздержавшиеся голоса изменены на "За"!</span>
+  {% else %}
+    <a href="?update=1" class="btn btn-warning btn-sm">Изменить воздержавшиеся голоса на "За"</a>
+  {% endif %}
+</p>
+
+<p>
+  {% if deleted %}
+    <span class="text-danger">Старые голоса удалены!</span>
+  {% else %}
+    <a href="?delete=1" class="btn btn-danger btn-sm">Удалить голоса старше года</a>
+  {% endif %}
+</p>
+
+{% endblock %}

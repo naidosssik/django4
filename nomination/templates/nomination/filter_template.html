@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Сводка по голосованию
+{% endblock %}
+
+
+{% block content %}
+
+<h2>Голоса за номинантов из номинации с id = 3</h2>
+<ul>
+  {% for vote in votes %}
+    <li>{{ vote.user.name }} — {{ vote.get_choice_display }} — {{ vote.voted_at }}</li>
+  {% empty %}
+    <li>Нет голосов</li>
+  {% endfor %}
+</ul>
+
+<h2>Номинанты, у которых название начинается с "Р"</h2>
+<ul>
+  {% for nominee in nominees %}
+    <li>
+      Имя: {{ nominee.user }} — Название заведения: {{ nominee.project_name }}
+    </li>
+  {% empty %}
+    <li>Нет номинантов</li>
+  {% endfor %}
+</ul>
+
+
+<h2>Номинанты, кроме тех, что в номинации с id = 4</h2>
+<ul>
+  {% for nominee in nominees_excluded %}
+    <li>{{ nominee.user }}</li>
+  {% empty %}
+    <li>Нет номинантов</li>
+  {% endfor %}
+</ul>
+
+
+<h2>Номинанты, отсортированные по имени</h2>
+<ul>
+  {% for nominee in nominees_ordered %}
+    <li>{{ nominee.user }}</li>
+  {% empty %}
+    <li>Нет номинантов</li>
+  {% endfor %}
+</ul>
+
+<h2>Голоса, отсортированные по дате голосования (убывание)</h2>
+<ul>
+  {% for vote in votes_ordered %}
+    <li>{{ vote.user.name }} — {{ vote.voted_at }}</li>
+  {% empty %}
+    <li>Нет голосов</li>
+  {% endfor %}
+</ul>
+
+<h2>Количество номинантов в каждой номинации</h2>
+<ul>
+  {% for nomination in nominations %}
+    <li>{{ nomination.name }} — {{ nomination.num_nominees }}</li>
+  {% empty %}
+    <li>Нет номинаций</li>
+  {% endfor %}
+</ul>
+
+<h2>Среднее количество голосов за номинанта: {{ avg_votes }}</h2>
+<h2>Максимальное количество голосов, полученных одним номинантом: {{ max_votes }}</h2>
+
+{% endblock %}
+
+
+

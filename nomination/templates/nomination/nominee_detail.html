@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали номинанта{% endblock %}
+
+{% block content %}
+<h1>{{ nominee.project_name }}</h1>
+<p>Пользователь: {{ nominee.user.name }} {{ nominee.user.surname }} ({{ nominee.user.email }})</p>
+<p>Номинация: {{ nominee.nomination.name }}</p>
+<p>Описание: {{ nominee.description }}</p>
+
+{% endblock %}

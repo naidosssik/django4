@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список номинантов
+{% endblock %}
+
+{% block content %}
+<h1>Номинанты</h1>
+
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по названию проекта"
+               value="{{ search }}">
+        <button class="btn btn-primary" type="submit">Найти</button>
+    </div>
+</form>
+
+{% if nominees %}
+    <ul class="list-group">
+        {% for nominee in nominees %}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h5 class="mb-1">
+                            <a href="{{ nominee.get_absolute_url }}"> {{ nominee.project_name }}</a>
+                        </h5>
+                        
+                        <p class="mb-1">
+                            Пользователь: {{ nominee.user.name }} {{ nominee.user.surname }} ({{ nominee.user.email }})
+                        </p>
+                        <p class="mb-1">Номинация: {{ nominee.nomination.name }}</p>
+                        {% if nominee.description %}
+                            <p class="mb-1">Описание: {{ nominee.description }}</p>
+                        {% endif %}
+                        {% if nominee.attachment %}
+                            <p class="mb-1">Фотография: {{ nominee.attachment }}</p>
+                        {% endif %}
+                        {% if nominee.project_url %}
+                            <p class="mb-1">Ссылка на ресурс: <a href="{{ nominee.project_url }}">{{ nominee.project_url }}</a></p>
+                        {% endif %}
+                        <small class="text-muted">Создан: {{ nominee.created_at|date:"d.m.Y H:i" }}</small>
+                    </div>
+
+                    <div class="ms-3 text-nowrap">
+                        <a href="{% url 'nominee_edit' nominee.id %}" class="btn btn-outline-primary btn-sm me-1">
+                            ✏️
+                        </a>
+                        <a href="{% url 'nominee_delete' nominee.id %}" class="btn btn-outline-danger btn-sm">
+                            🗑️
+                        </a>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Номинанты отсутствуют.</p>
+{% endif %}
+
+<p>
+    <a href="{% url 'nominee_add' %}" class="btn btn-success btn-sm">➕ Добавить номинанта</a>
+</p>
+
+
+{% endblock %}

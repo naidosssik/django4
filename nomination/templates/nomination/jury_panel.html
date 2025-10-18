@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Члены жюри
+{% endblock %}
+
+{% block content %}
+<h1>Члены жюри</h1>
+
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по имени жюри"
+               value="{{ search }}">
+        <button class="btn btn-primary" type="submit">Найти</button>
+    </div>
+</form>
+
+
+{% if juries %}
+    <ul class="list-group">
+        {% for jury in juries %}
+            <li class="list-group-item">
+                Пользователь: {{ jury.user.name }} {{ jury.user.surname }} ({{ jury.user.email }})<br>
+                Биография: {% if jury.bio %}{{ jury.bio }}{% else %}<em>Отсутствует</em>{% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Члены жюри отсутствуют.</p>
+{% endif %}
+
+<p>
+    {% if exists_photo %}
+        <strong>Есть члены жюри с фото.</strong>
+    {% else %}
+        <strong>Члены жюри с фото отсутствуют.</strong>
+    {% endif %}
+</p>
+
+<p>
+    {% if updated %}
+        <span class="text-success">Биографии успешно обновлены!</span>
+    {% else %}
+        <a href="?{% if search %}search={{ search }}&{% endif %}update=1" class="btn btn-warning btn-sm">Обновить биографии</a>
+    {% endif %}
+</p>
+
+<p>
+    {% if deleted %}
+        <span class="text-danger">Члены жюри без биографии удалены!</span>
+    {% else %}
+        <a href="?{% if search %}search={{ search }}&{% endif %}delete=1" class="btn btn-danger btn-sm">Удалить жюри без биографии</a>
+    {% endif %}
+</p>
+
+
+{% endblock %}

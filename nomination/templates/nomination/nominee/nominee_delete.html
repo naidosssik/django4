@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Подтверждение удаления номинанта
+{% endblock %}
+
+{% block content %}
+<h1>Удалить номинанта</h1>
+
+<p>Вы уверены, что хотите удалить номинанта <strong>{{ nominee.project_name }}</strong>?</p>
+<ul>
+    <li>Пользователь: {{ nominee.user.name }} {{ nominee.user.surname }} ({{ nominee.user.email }})</li>
+    <li>Номинация: {{ nominee.nomination.name }}</li>
+    {% if nominee.description %}
+        <li>Описание: {{ nominee.description }}</li>
+    {% endif %}
+    <li>Создан: {{ nominee.created_at|date:"d.m.Y H:i" }}</li>
+</ul>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a href="{% url 'nominees' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}
+

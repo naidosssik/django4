@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Список номинантов</title>
+<style>
+  body { font-family: DejaVu Sans, sans-serif; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid #000; padding: 5px; }
+</style>
+</head>
+<body>
+<h2>Номинанты</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Проект</th>
+      <th>Контакт</th>
+      <th>Номинация</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for nominee in nominees %}
+    <tr>
+      <td>{{ nominee.project_name }}</td>
+      <td>{{ nominee.contact }}</td>
+      <td>{{ nominee.nomination.name }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</body>
+</html>

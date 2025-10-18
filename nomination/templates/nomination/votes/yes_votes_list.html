@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Голоса
+{% endblock %}
+
+{% block content %}
+<h2>Голоса "За"</h2>
+
+<ul>
+  {% for vote in yes_votes %}
+    <li>{{ vote.user }} проголосовал за {{ vote.nominee }} ({{ vote.voted_at }})</li>
+  {% empty %}
+    <p>Нет голосов "За"</p>
+  {% endfor %}
+</ul>
+
+<p><a href="{% url 'votes' %}" class="btn btn-light">← Назад ко всем голосам</a></p>
+
+{% endblock %}

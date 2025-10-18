@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список номинаций
+{% endblock %}
+
+{% block content %}
+<h1>Номинации</h1>
+
+
+{% if nominations %}
+    <ul class="list-group">
+        {% for nomination in nominations %}
+            <li class="list-group-item">
+                <h5>{{ nomination.name }}</h5>
+                {% if nomination.description %}
+                    <p>{{ nomination.description }}</p>
+                {% else %}
+                    <p><em>Описание отсутствует</em></p>
+                {% endif %}
+                <small>Создана: {{ nomination.created_date|date:"d.m.Y H:i" }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Номинации отсутствуют.</p>
+{% endif %}
+
+<p>Есть активные номинации: {{ active_exists }}</p>
+
+<p>
+  {% if updated %}
+    <span class="text-danger">Активные номинации закрыты!</span>
+  {% else %}
+    <a href="?update=1" class="btn btn-danger btn-sm">Закрыть активные номинации</a>
+  {% endif %}
+</p>
+
+{% endblock %}
